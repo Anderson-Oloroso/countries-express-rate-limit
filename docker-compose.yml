@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: campuslands_express_app
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    env_file:
+      - .env
+    volumes:
+      # Sincroniza el código fuente local con el contenedor para desarrollo en vivo
+      - .:/usr/src/app
+      # Evita que la carpeta node_modules del contenedor sea sobrescrita por la del host (si no existe localmente)
+      - /usr/src/app/node_modules

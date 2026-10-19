@@ -1,0 +1,28 @@
+{
+  "name": "countries-express-rate-limit",
+  "version": "1.0.0",
+  "description": "A node.js project in order to understand the topic rate-limit using express-rate-limit",
+  "keywords": [
+    "node.js",
+    "rate-limit",
+    "express",
+    "express-rate-limit",
+    "exercise"
+  ],
+  "homepage": "https://github.com/Anderson-Oloroso/countries-express-rate-limit#readme",
+  "bugs": {
+    "url": "https://github.com/Anderson-Oloroso/countries-express-rate-limit/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Anderson-Oloroso/countries-express-rate-limit.git"
+  },
+  "license": "ISC",
+  "author": "Anderson-Oloroso",
+  "type": "module",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  }
+}
