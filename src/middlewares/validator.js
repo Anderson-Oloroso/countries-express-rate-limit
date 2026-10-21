@@ -1,11 +1,8 @@
-// Validaciones de los paises
-// Verfifica los datos obligatorios
-
 export function validateCountry(req, res, next){
     if(!req.body || typeof req.body !== 'object'){
         return res.status(400).json({
-            exito: false,
-            error: 'Se requie enviar un cuerpo JSON válido.' 
+            success: false,
+            error: 'Se requiere enviar un cuerpo JSON válido.'
         });
     }
 
@@ -25,10 +22,10 @@ export function validateCountry(req, res, next){
         });
     }
 
-    if(!moneda || typeof nombre !== 'string' || nombre.trim().length === 0){
+    if(!moneda || typeof moneda !== 'string' || moneda.trim().length === 0){
         return res.status(400).json({
             success: false,
-            error: 'El campo "nombre" del pais es obligatorio.'
+            error: 'El campo "moneda" del país es obligatorio.'
         });
     }
 
@@ -39,14 +36,17 @@ export function validateCountry(req, res, next){
         });
     }
 
-    if(!idioma || typeof idioma !== 'string' || idioma.trim().length === 0){
+    const validLanguages = typeof idioma === 'string'
+        ? idioma.trim().length > 0
+        : Array.isArray(idioma) && idioma.length > 0
+            && idioma.every((language)=> typeof language === 'string' && language.trim().length > 0);
+
+    if(!validLanguages){
         return res.status(400).json({
             success: false,
-            error: 'El campo "idioma" del pais es obligatorio.'
+            error: 'El campo "idioma" debe ser una cadena o una lista de cadenas no vacías.'
         });
     }
 
-    // Si todas las validaciones con correctas
     next();
-};
-
+}

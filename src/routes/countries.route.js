@@ -1,15 +1,10 @@
 import { Router } from 'express';
-import { countries } from '../data/countries.db.js';
+import { countries } from '../data/countries.data.js';
 import { validateCountry } from '../middlewares/validator.js';
 import { createCountryLimiter } from '../middlewares/rateLimiter.js';
 
-// Enrutador modular de Paises
-// Gestiona 5 endpints CRUD operandi sobre el arreglo en memoria
-// Se monda en src/app.js bajo el prefijo de /api/countries protegido
-
 const router = Router();
 
-// 1. [GET] api/countries - List
 router.get('/', (req, res)=>{
     res.status(200).json({
         success: true,
@@ -17,33 +12,40 @@ router.get('/', (req, res)=>{
         rateLimitInfo: req.rateLimit
         ? {
             windowLimit: req.rateLimit.limit,
-            used: req.rateLimit.current,
+            used: req.rateLimit.used,
             remainingTokens: req.rateLimit.remaining
         } : undefined,
         data: countries
     });
 });
 
-// 2. [GET] /api/countries/:id - Find One
 router.get('/:id', (req, res)=>{
-    const id = parseInt(req.params.id, 10);
+    const id = Number(req.params.id);
 
-    if(isNaN(id)){
+    if(!Number.isInteger(id)){
         return res.status(400).json({
             success: false,
             error: 'El parámetro ID debe ser un número entero válido.'
         });
     }
 
-    const findedCountry = countries.find((j)=> j.id === id);
+    const country = countries.find((item)=> item.id === id);
 
-    if(!findedCountry){
+    if(!country){
         return res.status(404).json({
             success: false,
-            error: `No se encontró ningún juego con el ID ${id}`
+            error: `No se encontró ningún país con el ID ${id}`
         });
     }
+
+    res.status(200).json({ success: true, country });
 });
+
+function normalizeLanguages(idioma){
+    return Array.isArray(idioma)
+        ? idioma.map((language)=> language.trim())
+        : idioma.trim();
+}
 
 router.post('/', createCountryLimiter, validateCountry, (req, res)=>{
     const { nombre, capital, moneda, gentilicio, idioma } = req.body;
@@ -51,12 +53,12 @@ router.post('/', createCountryLimiter, validateCountry, (req, res)=>{
     const newId = countries.length > 0 ? Math.max(...countries.map((c)=> c.id)) + 1 : 1;
 
     const newCountry = {
-        id: newId.trim(),
+        id: newId,
         nombre: nombre.trim(),
         capital: capital.trim(),
         moneda: moneda.trim(),
         gentilicio: gentilicio.trim(),
-        idioma: idioma.trim()
+        idioma: normalizeLanguages(idioma)
     }
 
     countries.push(newCountry);
@@ -68,18 +70,17 @@ router.post('/', createCountryLimiter, validateCountry, (req, res)=>{
     });
 })
 
-// 4. [PUT] /api/countries/:id - Update
 router.put('/:id', validateCountry, (req, res)=>{
-    const id = parseInt(req.params.id, 10);
+    const id = Number(req.params.id);
 
-    if(isNaN(id)){
+    if(!Number.isInteger(id)){
         return res.status(400).json({
             success: false,
             error: 'El parámetro ID debe ser un número entero válido.'
         });
     }
 
-    const index = countries.findIndex((c)=> c.id === id);
+    const index = countries.findIndex((country)=> country.id === id);
 
     if(index === -1){
         return res.status(404).json({
@@ -91,12 +92,12 @@ router.put('/:id', validateCountry, (req, res)=>{
     const { nombre, capital, moneda, gentilicio, idioma } = req.body;
 
     countries[index] = {
-        id: newId.trim(),
+        id,
         nombre: nombre.trim(),
         capital: capital.trim(),
         moneda: moneda.trim(),
         gentilicio: gentilicio.trim(),
-        idioma: idioma.trim()
+        idioma: normalizeLanguages(idioma)
     }
 
     res.status(200).json({
@@ -105,23 +106,22 @@ router.put('/:id', validateCountry, (req, res)=>{
     });
 });
 
-// 5. [DELETE] /api/countries/:id - Eliminar
 router.delete('/:id', (req, res)=>{
-    const id = parseInt(req.params.id, 10);
+    const id = Number(req.params.id);
 
-    if(isNaN(id)){
+    if(!Number.isInteger(id)){
         return res.status(400).json({
             success: false,
             error: 'El parámetro ID debe ser un número entero válido.'
         });
     }
 
-    const index = countries.findIndex((c)=> c.id === id);
+    const index = countries.findIndex((country)=> country.id === id);
 
     if(index === -1){
         return res.status(404).json({
             success: false,
-            error: `No se puede eliminar: No existe Pais con ID ${id}`
+            error: `No se puede eliminar: No existe país con ID ${id}`
         });
     }
 

@@ -1,5 +1,6 @@
-export const paises = [
+export const countries = [
   {
+    id: 1,
     nombre: "Canadá",
     capital: "Ottawa",
     moneda: "Dólar canadiense",
@@ -7,6 +8,7 @@ export const paises = [
     idioma: ["inglés", "francés"]
   },
   {
+    id: 2,
     nombre: "Estados Unidos",
     capital: "Washington D. C.",
     moneda: "Dólar estadounidense",
@@ -14,6 +16,7 @@ export const paises = [
     idioma: "inglés"
   },
   {
+    id: 3,
     nombre: "México",
     capital: "Ciudad de México",
     moneda: "Peso mexicano",
@@ -21,6 +24,7 @@ export const paises = [
     idioma: "español"
   },
   {
+    id: 4,
     nombre: "Guatemala",
     capital: "Ciudad de Guatemala",
     moneda: "Quetzal",
@@ -28,6 +32,7 @@ export const paises = [
     idioma: "español"
   },
   {
+    id: 5,
     nombre: "Costa Rica",
     capital: "San José",
     moneda: "Colón costarricense",
@@ -35,6 +40,7 @@ export const paises = [
     idioma: "español"
   },
   {
+    id: 6,
     nombre: "Panamá",
     capital: "Ciudad de Panamá",
     moneda: "Balboa y dólar estadounidense",
@@ -42,6 +48,7 @@ export const paises = [
     idioma: "español"
   },
   {
+    id: 7,
     nombre: "Cuba",
     capital: "La Habana",
     moneda: "Peso cubano",
@@ -49,6 +56,7 @@ export const paises = [
     idioma: "español"
   },
   {
+    id: 8,
     nombre: "Jamaica",
     capital: "Kingston",
     moneda: "Dólar jamaiquino",
@@ -56,6 +64,7 @@ export const paises = [
     idioma: "inglés"
   },
   {
+    id: 9,
     nombre: "Colombia",
     capital: "Bogotá",
     moneda: "Peso colombiano",
@@ -63,6 +72,7 @@ export const paises = [
     idioma: "español"
   },
   {
+    id: 10,
     nombre: "Brasil",
     capital: "Brasilia",
     moneda: "Real brasileño",
