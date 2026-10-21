@@ -1,0 +1,19 @@
+info:
+  name: Create country
+  type: http
+  seq: 3
+
+http:
+  method: POST
+  url: http://localhost:3000/api/countries
+  body:
+    type: json
+    data: |-
+      {
+        "nombre": "Argentina",
+        "capital": "Buenos Aires",
+        "moneda": "Peso argentino",
+        "gentilicio": "argentino",
+        "idioma": "español"
+      }
+  auth: inherit

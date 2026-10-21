@@ -1,0 +1,9 @@
+info:
+  name: Delete country
+  type: http
+  seq: 5
+
+http:
+  method: DELETE
+  url: http://localhost:3000/api/countries/1
+  auth: inherit
