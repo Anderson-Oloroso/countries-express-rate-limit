@@ -1,0 +1,9 @@
+info:
+  name: List countries
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: http://localhost:3000/api/countries
+  auth: inherit

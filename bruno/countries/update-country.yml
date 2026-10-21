@@ -1,0 +1,19 @@
+info:
+  name: Update country
+  type: http
+  seq: 4
+
+http:
+  method: PUT
+  url: http://localhost:3000/api/countries/1
+  body:
+    type: json
+    data: |-
+      {
+        "nombre": "Canadá actualizado",
+        "capital": "Ottawa",
+        "moneda": "Dólar canadiense",
+        "gentilicio": "canadiense",
+        "idioma": ["inglés", "francés"]
+      }
+  auth: inherit

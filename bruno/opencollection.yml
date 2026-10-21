@@ -1,0 +1,6 @@
+opencollection: 1.0.0
+info:
+  name: Countries API
+  type: collection
+  version: 1.0.0
+  description: Peticiones para probar la API de países local.
